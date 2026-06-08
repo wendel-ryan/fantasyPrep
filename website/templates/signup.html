@@ -1,0 +1,48 @@
+{% extends "auth.html" %} {% block title %}Sign-Up{% endblock %}
+{% block content %}
+  <form class="signup-form" method="POST">
+    <h3 align="center">Sign Up</h3>
+    <label for="email">Email Address</label>
+    <input 
+      type="email" 
+      class="form-control" 
+      id="email" 
+      name="email" 
+      placeholder="Enter Email"
+    />
+    <label for="firstName">First Name:</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="firstName" 
+      name="firstName" 
+      placeholder="Enter First Name"
+    />
+    <label for="lastName">Last Name:</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="lastName" 
+      name="lastName" 
+      placeholder="Enter Last Name"
+    />
+    <label for="password1">Password:</label>
+    <input 
+      type="password" 
+      class="form-control" 
+      id="password1" 
+      name="password1" 
+      placeholder="Enter Password"
+    />
+    <label for="password2">Password (Confirm):</label>
+    <input 
+      type="password" 
+      class="form-control" 
+      id="password2" 
+      name="password2" 
+      placeholder="Confirm Password"
+    />
+    <br />
+    <button type="submit" class="btn btn-primary signup-btn">Confirm</button>
+  </form>
+{% endblock %}

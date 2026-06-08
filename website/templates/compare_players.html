@@ -1,0 +1,209 @@
+{% extends "base.html" %} {% block title %}Compare Players{% endblock %}
+{% block content %}
+
+<section class="comp_players">
+    <form method="post">
+        <div class="input-group"> 
+            {% if num==None %}
+                <select name="num" class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                    {% for i in range(2,6) %}
+                        <option value="{{i}}" style="color: black;">{{i}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Compare Players</button>
+            {% else %}   
+                <input class="searchPlayer" name="player1" list="player1">
+                <datalist id="player1">
+                    {% for player in players %}
+                        <option value="{{player['name']}}">
+                    {% endfor %}
+                </datalist> 
+                <input class="searchPlayer" name="player2" list="player2">
+                <datalist id="player2">
+                    {% for player in players %}
+                        <option value="{{player['name']}}">
+                    {% endfor %}
+                </datalist>
+                {% if num>=3 %}
+                    <input class="searchPlayer" name="player3" list="player3">
+                    <datalist id="player3">
+                        {% for player in players %}
+                            <option value="{{player['name']}}">
+                        {% endfor %}
+                    </datalist>
+                {% endif %}
+                {% if num>=4 %}
+                    <input class="searchPlayer" name="player4" list="player4">
+                    <datalist id="player4">
+                        {% for player in players %}
+                            <option value="{{player['name']}}">
+                        {% endfor %}
+                    </datalist>
+                {% endif %}
+                {% if num>=5 %}
+                    <input class="searchPlayer" name="player5" list="player5">
+                    <datalist id="player5">
+                        {% for player in players %}
+                            <option value="{{player['name']}}">
+                        {% endfor %}
+                    </datalist>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Compare Players</button>
+            {% endif %}
+        </div>
+    </form>
+    <div class="playerContainer">
+        {% if playerdata!=None %}
+            {% for player in playerdata %}
+                <div class="playerdisplay" style="background-color: #2c3034;">
+                    <img class="playerphoto"  src="{{player['player']['photo']}}" alt="poop">
+                    <div class="playerdata">
+                        <h3 class="playername">{{player['player']['name']}} {{player['player']['pos']}}</h3>
+                        <h4 class="year">{{ 2022 }}</h4>
+                        {% for season in player['passing'] %}
+                            <table id="statscomp" class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <th scope="col">Passing</th>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    <th scope="col">{{key}}</th>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <td></td>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    {% if key in ['teamid'] %}
+                                                        {% for team in teams %}
+                                                            {% if (season['teamid'] | int)==team['id'] %}
+                                                                <td>{{team['abbrv']}}</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <td>{{season[key]}}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                        {% for season in player['rushing'] %}
+                            <table id="statscomp" class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <th scope="col">Rushing</th>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    <th scope="col">{{key}}</th>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <td></td>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    {% if key in ['teamid'] %}
+                                                        {% for team in teams %}
+                                                            {% if (season['teamid'] | int)==team['id'] %}
+                                                                <td>{{team['abbrv']}}</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <td>{{season[key]}}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                        {% for season in player['recieving'] %}
+                            <table id="statscomp" class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <th scope="col">Recieving</th>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    <th scope="col">{{key}}</th>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% if season['year']==2022 %}
+                                            <td></td>
+                                            {% for key in season.keys() %}
+                                                {% if key not in ['playerid', 'year'] %}
+                                                    {% if key in ['team'] %}
+                                                        {% for team in teams %}
+                                                            {% if (season['team'] | int)==team['id'] %}
+                                                                <td>{{team['abbrv']}}</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <td>{{season[key]}}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                        {% for season in player['fantasy'] %}
+                            {% if season['year']==2022 %}
+                                <table id="statscomp" class="table table-striped table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Fantasy</th>
+                                            <th scope="col">Rank</th>
+                                            {% for i in range(1,19) %}
+                                                <th scope="col">{{i}}</th>
+                                            {% endfor %} 
+                                            <th scope="col">AVG</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>{{ season['rank'] }}</td>
+                                            {% for week in season['weeks'] %}
+                                                {% if week !='' %}
+                                                    <td>{{ week }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <td>{{ season['avg'] }}</td>
+                                            <td>{{ season['tot'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="space"></div>
+</section>
+{% endblock %}

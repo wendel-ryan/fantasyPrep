@@ -1,0 +1,59 @@
+{% extends "base.html" %} {% block title %}Draft Analyzer{% endblock %}
+{% block content %}
+<section class="base">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% else %}
+                <div class="alert alert-success alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% if options!=[] %}
+        <form method="post">
+            <div class="rankdrop">
+                <select name="size" class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                    {% for i in options %}
+                        <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    {% else %}
+        <form method="post">
+            <div class="teaminputcontainer">
+                {% for i in labels %}
+                    <div class="teaminput">
+                        <h2 id="teaminfo">{{i}}</h1>
+                        <input class="teamname" id="teaminfo" name="{{i}}" placeholder="Team Name" style="color: black;">
+                        <input class="searchPlayer" id="teaminfo" name="{{i+'keeper'}}" list="players" placeholder="Keeper Name" style="color: black;">
+                        <datalist id="players">
+                            {% for player in players %}
+                                <option value="{{player['name']}}">
+                            {% endfor %}
+                        </datalist>
+                        <input class="round" id="teaminfo" name="{{i+'round'}}" placeholder="Rd" style="color: black;">
+                        <input type="checkbox" name="{{i+'myteam'}}" value="True">
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Ranks{% endblock %}
+{% block content %}
+<section class="base">
+    <form method="post">
+        <div class="rankdrop">
+            <select name="index" class="form-select" aria-label="Default select example">
+                <option selected></option>
+                {% for i in selector %}
+                    {% for key,value in i.items() %}
+                        <option value="{{value}}" style="color: black;">{{key}}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <div class="update">
+            <p>Update</p>
+                <input type="checkbox" name="update" value="True">
+            </div>
+            <button type="submit" id="ranksbtn" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    {% if data!=[] %}
+        <form method="post">
+            <button id="favorite" type="submit" class="btn btn-primary">Submit Favorite Players</button>
+            <div class = display_stats>
+                <h2>Rankings</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr style="background-color: #2c3034;">
+                            <th scope="col">Rank</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Team</th>
+                            <th scope="col">PR</th>
+                            {% for key in data[0]['keys'] %}
+                                <th scope="col">{{ key }}</th>
+                            {% endfor %}
+                            <th scope="col">Like</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for player in data %}
+                            {% if player['fav'] == 'False' %}
+                                <tr style="background-color: #2c3034;">
+                                    <td style="color:whitesmoke">{{player['data']['rank']}}</td>
+                                    <td style="color:whitesmoke"><a class="playerLink" href="{{ url_for('views.player', players=[player['id']]) }}" target="_blank">{{ player['name'] }}</a></td>
+                                    <td style="color:whitesmoke">{{player['team']}}</td>
+                                    <td style="color:whitesmoke">{{player['data']['posrank']}}</td>
+                                    {% for key in player['keys'] %}
+                                        {% if player['data'][key]==None%}
+                                            <td style="color:whitesmoke">-</td>
+                                        {% else %}
+                                            <td style="color:whitesmoke">{{player['data'][key]}}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td><input type="checkbox" id="{{player['name']}}" name="{{player['name']}}" value="{{player[id]}}"></td>
+                                </tr>
+                            {% else %}
+                                <tr style="background-color: #0082e6;">
+                                    <td style="color:whitesmoke">{{player['data']['rank']}}</td>
+                                    <td><a class="playerLink" href="{{ url_for('views.player', players=[player['id']]) }}" target="_blank">{{ player['name'] }}</a></td>
+                                    <td style="color:whitesmoke">{{player['team']}}</td>
+                                    <td style="color:whitesmoke">{{player['data']['posrank']}}</td>
+                                    {% for key in player['keys'] %}
+                                        {% if player['data'][key]==None%}
+                                            <td style="color:whitesmoke">-</td>
+                                        {% else %}
+                                            <td style="color:whitesmoke">{{player['data'][key]}}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td><input type="checkbox" id="{{player['name']}}" name="{{player['name']}}" value="{{player[id]}}" checked></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}

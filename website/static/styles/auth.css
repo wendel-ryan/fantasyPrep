@@ -1,0 +1,80 @@
+* {
+  padding: 0%;
+  margin: 0%;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  color: black;}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.authTitle{
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+label {
+  margin: 0;
+}
+
+/*Sign-in*/
+.sign-in {
+  height: 60vh;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5vh 35vw;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.signin-form-control {
+  width: 15vw;
+  margin: 1vh 7.5vw;
+}
+
+.signin-btn {
+  width: 10vw;
+  margin: 1vh 10vw;
+}
+
+/*Signup*/
+.signup-form {
+  height: 60vh;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5vh 35vw;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.signup-form input {
+  width: 20vw;
+  text-align: center;
+  margin: .5vh 5vw;
+}
+
+.signup-btn {
+  width: 10vw;
+  margin: .5vh 10vw;
+}
